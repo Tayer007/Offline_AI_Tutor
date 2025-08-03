@@ -152,7 +152,7 @@ python app.py
 ```
 > **⚠️ IMPORTANT**: The `TORCHDYNAMO_DISABLE=1` environment variable is **required** before running the backend. This disables PyTorch's TorchDynamo compiler which can cause compatibility issues with certain model operations and transformer library versions. Without this setting, you may encounter compilation errors, slow performance, or unexpected crashes during model loading or inference.
 
-**Terminal 2 - Start the frontend: **
+**Terminal 2 - Start the frontend:**
 ```bash
 # From project root
 cd frontend
