@@ -85,7 +85,7 @@ Offline AI Tutor : A comprehensive offline desktop application powered by Google
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/offline-ai-tutor.git
+git clone https://github.com/Tayer007/Offline_AI_Tutor.git
 cd offline-ai-tutor
 ```
 
