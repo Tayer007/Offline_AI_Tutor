@@ -136,14 +136,6 @@ npm install
 
 ## 🚀 Running the Application
 
-### Start the Complete Application
-```bash
-# From project root
-cd frontend
-npm start
-```
-This will automatically start both backend and frontend
-
 ### Development Mode (Separate Processes)
 
 **Terminal 1 - Backend:**
@@ -158,8 +150,16 @@ python app.py
 export TORCHDYNAMO_DISABLE=1
 python app.py
 ```
-
 > **⚠️ IMPORTANT**: The `TORCHDYNAMO_DISABLE=1` environment variable is **required** before running the backend. This disables PyTorch's TorchDynamo compiler which can cause compatibility issues with certain model operations and transformer library versions. Without this setting, you may encounter compilation errors, slow performance, or unexpected crashes during model loading or inference.
+
+**Terminal 2 - Start the frontend: **
+```bash
+# From project root
+cd frontend
+npm start
+```
+
+
 
 **Terminal 2 - Frontend:**
 ```bash
