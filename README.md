@@ -288,11 +288,14 @@ python app.py
 - Verify CUDA compatibility if using GPU
 
 **GPU Out of Memory**
-- Ensure you have 8GB+ VRAM available
+- **Hardware Requirements**: Ensure you have at least 8GB VRAM + 3GB free RAM (model uses GPU-RAM offloading)
+- **Total Memory Needed**: ~11GB combined (8GB VRAM + 3GB RAM for shared GPU memory)
 - Close all other GPU-intensive applications (games, video editing, mining)
+- Close unnecessary browser tabs and applications to free up RAM
 - Check GPU memory usage: `nvidia-smi`
-- Reduce max_memory setting in `ai_tutor.py` if needed
-- Consider upgrading to a GPU with more VRAM
+- Check RAM usage: Task Manager (Windows) or `htop` (Linux/macOS)
+- **Cannot reduce memory**: Model requires minimum 11GB total - reducing settings won't help
+- Consider upgrading to a GPU with 12GB+ VRAM for pure GPU operation
 - CPU fallback available but significantly slower
 
 **Slow Performance**
@@ -303,6 +306,8 @@ python app.py
 - Close other memory-intensive applications
 - Upgrade to faster storage (SSD recommended)
 - For CPU-only: Performance will be significantly slower but functional
+
+**Important Note: This project was designed to work with a quantized (4-bit) version of Gemma 3n that would require only 4GB RAM and no GPU. We implemented the full, unquantized model purely for demonstration and availability purposes. In theory, a properly quantized version would make this educational AI accessible on basic institutional PCs worldwide. For more details on the intended vision and global impact, please read our [IMPACT_STATEMENT.md](IMPACT_STATEMENT.md).**
 
 **Frontend Won't Start**
 ```bash
@@ -452,6 +457,8 @@ npm run build:linux   # Linux AppImage
 - **Image Types**: Works best with clear, educational images
 - **Internet Required**: Only for initial model download (30GB+)
 
+**Important Note: This project was designed to work with a quantized (4-bit) version of Gemma 3n that would require only 4GB RAM and no GPU. We implemented the full, unquantized model purely for demonstration and availability purposes. In theory, a properly quantized version would make this educational AI accessible on basic institutional PCs worldwide. For more details on the intended vision and global impact, please read our [IMPACT_STATEMENT.md](IMPACT_STATEMENT.md).**
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
@@ -468,7 +475,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - **Hugging Face**: For the transformers library and model hosting
 - **Electron Team**: For the cross-platform desktop framework
 - **Flask Team**: For the lightweight web framework
-- **OpenAI**: For inspiration from ChatGPT's educational approach
 
 ## 🔄 Version History
 
