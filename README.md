@@ -143,10 +143,14 @@ npm install
 cd backend
 
 # Windows (PowerShell) - REQUIRED
+# From project root
+cd backend
 $env:TORCHDYNAMO_DISABLE="1"
 python app.py
 
 # Linux/macOS - REQUIRED
+# From project root
+cd backend
 export TORCHDYNAMO_DISABLE=1
 python app.py
 ```
