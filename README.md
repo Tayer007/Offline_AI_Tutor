@@ -493,7 +493,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - 🔄 **Automated Authentication**: Streamlined Hugging Face login process integrated into the installer
 - 🔄 Voice input/output support
 - 🔄 PDF document analysis
-- 🔄 Enhanced image understanding
+- 🔄 Enhanced image understanding with proper LaTeX formatting for mathematical expressions
+- 🔄 Configurable response language and response length (tokens) for image analysis
 - 🔄 Conversation history and bookmarks
 - 🔄 Additional model options
 - 🔄 Plugin system for extensions
