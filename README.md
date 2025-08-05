@@ -356,12 +356,13 @@ node --version  # Should be 18+
 - **VRAM Requirements**: 8GB+ for smooth operation
 - **Languages**: Multilingual support with English preference
 
-### Performance Metrics
-- **Text Generation**: 30-60 tokens/second (8GB+ VRAM GPU), 2-5 tokens/second (CPU)
-- **Image Analysis**: 1-3 seconds per image (8GB+ VRAM GPU), 15-30 seconds (CPU)
+### Performance Metrics based on the following Setup:(RTX3070 8GB, i7 11th Gen, 32GB RAM ddr4)
+- **Text Generation**: 1-3 tokens/second (8GB+ VRAM GPU), 2-5 tokens/second (CPU)
+- **Image Analysis**: 40-80 seconds per image (8GB+ VRAM GPU)
 - **Memory Usage**: 8-12GB RAM + 8GB+ VRAM (GPU), 16-24GB RAM (CPU only)
 - **Storage**: ~30GB for model files, ~6GB for application and dependencies
-
+**it should run much faster with more modern RAM and 12gb+ of VRAM**
+  
 ### Security Features
 - **Local Processing**: All AI inference happens locally
 - **No Telemetry**: No data collection or tracking
