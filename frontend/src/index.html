@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline AI Tutor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="tutor-header">
+            <div class="header-content">
+                <h1>🎓 Offline AI Tutor</h1>
+                <div class="model-info">
+                    <span class="status-indicator online" id="status"></span>
+                    <span>Gemma 3n Ready</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="tutor-main">
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-button active" data-tab="text-tutor">
+                    📚 Text Tutor
+                </button>
+                <button class="tab-button" data-tab="image-analyzer">
+                    🖼️ Image Analyzer
+                </button>
+            </div>
+
+            <!-- Text Tutor Tab -->
+            <div class="tab-content active" id="text-tutor">
+                <div class="chat-container" id="chatContainer">
+                    <div class="welcome-message">
+                        <h2>Welcome to Your Personal AI Tutor! 🎓</h2>
+                        <p>I'm here to help you learn anything in any language at any level:</p>
+                        <ul>
+                            <li>📚 Educational explanations adapted to your level</li>
+                            <li>🌍 Multilingual conversations and translations</li>
+                            <li>💻 Programming and technical concepts</li>
+                            <li>🔬 Scientific principles and research</li>
+                            <li>📖 Literature, history, and humanities</li>
+                            <li>🧮 Mathematics from basic to advanced</li>
+                        </ul>
+                        <p><strong>Choose your preferences below and start learning!</strong></p>
+                    </div>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                    <span></span><span></span><span></span>
+                    <span class="typing-text">AI Tutor is thinking...</span>
+                </div>
+
+                <!-- Text Input Controls -->
+                <div class="input-section">
+                    <div class="tutor-controls">
+                        <div class="control-group">
+                            <label>📚 Subject Area:</label>
+                            <select id="subjectSelect" class="control-select">
+                                <option value="General">General</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Biology">Biology</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="History">History</option>
+                                <option value="Literature">Literature</option>
+                                <option value="Psychology">Psychology</option>
+                                <option value="Economics">Economics</option>
+                                <option value="Art">Art</option>
+                                <option value="Music">Music</option>
+                                <option value="custom">🖊️ Custom Subject</option>
+                            </select>
+                            <input id="customSubject" type="text" placeholder="Enter custom subject..." 
+                                   class="custom-input" style="display: none;">
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>🌍 Response Language:</label>
+                            <select id="languageSelect" class="control-select">
+                                <option value="English">English</option>
+                                <option value="German">Deutsch</option>
+                                <option value="Spanish">Español</option>
+                                <option value="French">Français</option>
+                                <option value="Italian">Italiano</option>
+                                <option value="Portuguese">Português</option>
+                                <option value="Dutch">Nederlands</option>
+                                <option value="Chinese">中文</option>
+                                <option value="Japanese">日本語</option>
+                                <option value="Korean">한국어</option>
+                                <option value="Arabic">العربية</option>
+                                <option value="custom">🖊️ Custom Language</option>
+                            </select>
+                            <input id="customLanguage" type="text" placeholder="Enter custom language..." 
+                                   class="custom-input" style="display: none;">
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>🎓 Education Level:</label>
+                            <select id="levelSelect" class="control-select">
+                                <option value="elementary">Elementary (Age 6-11)</option>
+                                <option value="middle_school">Middle School (Age 11-14)</option>
+                                <option value="high_school">High School (Age 14-18)</option>
+                                <option value="university">University (Age 18+)</option>
+                                <option value="graduate">Graduate Level</option>
+                                <option value="professional">Professional</option>
+                                <option value="custom">🖊️ Custom Level</option>
+                            </select>
+                            <input id="customLevel" type="text" placeholder="e.g., 'beginner programmer', 'advanced researcher'..." 
+                                   class="custom-input" style="display: none;">
+                        </div>
+                        
+
+                        <div class="control-group">
+                             <label>⚡ Response Length:</label>
+                             <select id="tokenSelect" class="control-select">
+                                <option value="128">Quick (128 tokens)</option>
+                                <option value="256" selected>Standard (256 tokens)</option>
+                                <option value="512">Detailed (512 tokens)</option>
+                                <option value="1024">Comprehensive (1024 tokens)</option>
+                                <option value="custom">🖊️ Custom Length</option>
+                             </select>
+                             <input id="customTokens" type="number" placeholder="Enter token count (50-2048)..." 
+                                    class="custom-input" style="display: none;" min="50" max="2048" step="1">
+                            </div>
+                       
+                        <div class="control-group">
+                            <label>🎯 Response Style:</label>
+                            <select id="styleSelect" class="control-select">
+                                <option value="regular">Regular (Standard explanations)</option>
+                                <option value="effective">Effective (Direct, no fluff)</option>
+                                <option value="custom">🖊️ Custom Style</option>
+                            </select>
+                            <input id="customStyle" type="text" placeholder="Enter custom instruction prefix..." 
+                                class="custom-input" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="message-input-container">
+                        <textarea 
+                            id="messageInput" 
+                            placeholder="Ask me anything! For example: 'Explain quantum physics', 'Help me with calculus', 'What is machine learning?'"
+                            rows="3"
+                        ></textarea>
+                        <button id="sendTextButton" class="send-button">
+                            <span class="send-icon">🎓</span>
+                            <span class="send-text">Ask Tutor</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Analyzer Tab -->
+            <div class="tab-content" id="image-analyzer">
+                <div class="image-analysis-container">
+                    <div class="image-welcome">
+                        <h2>🖼️ Visual Learning Assistant</h2>
+                        <p>Upload or provide a URL to any image and ask questions about it:</p>
+                        <ul>
+                            <li>📊 Analyze charts, graphs, and data visualizations</li>
+                            <li>🔬 Explain scientific diagrams and processes</li>
+                            <li>📚 Describe historical images and documents</li>
+                            <li>🎨 Analyze artwork and visual compositions</li>
+                            <li>🧮 Solve math problems from images</li>
+                            <li>🗺️ Interpret maps and geographical features</li>
+                        </ul>
+                    </div>
+
+                    <!-- Image Input Section -->
+                    <div class="image-input-section">
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <div class="upload-placeholder">
+                                <div class="upload-icon">📷</div>
+                                <div class="upload-text">
+                                    <p><strong>Add an image to analyze</strong></p>
+                                    <p>Drag & drop, paste an image URL, or click to browse</p>
+                                </div>
+                            </div>
+                            <input type="file" id="imageFileInput" accept="image/*" style="display: none;">
+                        </div>
+
+                        <div class="url-input-container">
+                            <input type="url" id="imageUrlInput" placeholder="Or paste an image URL here (e.g., https://example.com/image.jpg)">
+                            <button id="loadImageButton" class="load-button">Load Image</button>
+                        </div>
+
+                        <!-- Example Images -->
+                        <div class="example-images">
+                            <p><strong>Try these examples:</strong></p>
+                            <div class="example-grid">
+                                <button class="example-btn" data-url="https://storage.googleapis.com/kaggle-media/competitions/question_goose.png">
+                                    🦢 Kaggle Goose
+                                </button>
+                                <button class="example-btn" data-url="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Photosynthesis_en.svg/400px-Photosynthesis_en.svg.png">
+                                    🌱 Photosynthesis Diagram
+                                </button>
+                                <button class="example-btn" data-url="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Solar_system.jpg/400px-Solar_system.jpg">
+                                    🌌 Solar System
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="image-preview-container" id="imagePreviewContainer" style="display: none;">
+                        <div class="image-preview">
+                            <img id="previewImage" alt="Preview">
+                            <button class="remove-image-btn" id="removeImageBtn">✕</button>
+                        </div>
+                    </div>
+
+                    <!-- Image Question Input -->
+                    <div class="image-question-section">
+                        <div class="question-input-container">
+                            <textarea 
+                                id="imageQuestionInput" 
+                                placeholder="Ask a question about the image... For example: 'What do you see in this image?', 'Explain what's happening here', 'What are the key elements?'"
+                                rows="3"
+                            ></textarea>
+                            <button id="analyzeImageButton" class="analyze-button" disabled>
+                                <span class="analyze-icon">🔍</span>
+                                <span class="analyze-text">Analyze Image</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Image Analysis Results -->
+                    <div class="image-results-container" id="imageResultsContainer">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
