@@ -361,7 +361,7 @@ node --version  # Should be 18+
 - **Image Analysis**: 40-80 seconds per image (8GB+ VRAM GPU)
 - **Memory Usage**: 8-12GB RAM + 8GB+ VRAM (GPU), 16-24GB RAM (CPU only)
 - **Storage**: ~30GB for model files, ~6GB for application and dependencies
-- **it should run much faster with more modern RAM and 12gb+ of VRAM**
+- **it should run much faster with more modern RAM and 12GB+ of VRAM**
   
 ### Security Features
 - **Local Processing**: All AI inference happens locally
